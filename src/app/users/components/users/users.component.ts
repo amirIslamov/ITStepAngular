@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {User, UsersService} from "../../services/users.service";
+import {CreateUserDto, EditUserDto, User, UsersService} from "../../services/users.service";
 
 @Component({
   selector: 'app-users',
@@ -22,6 +22,19 @@ export class UsersComponent implements OnInit {
       .subscribe((users => this.users = users))
   }
 
+  removeUser(id: number): void {
+    this.usersService.removeUser(id).subscribe(() => {
+      this.users = this.users.filter((user) => user.id != id);
+    })
+  }
 
+  editUser([id, user]: [number, EditUserDto]): void {
+    this.usersService.editUser(id, user).subscribe();
+  }
 
+  addUser(user: CreateUserDto): void {
+    this.usersService.addUser(user).subscribe((responseUser) => {
+      this.users = [...this.users, responseUser]
+    })
+  }
 }

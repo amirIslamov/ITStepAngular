@@ -1,0 +1,48 @@
+<form #formGroup="ngForm" (ngSubmit)="handleSubmit(); formGroup.reset()">
+  <div>
+    <label for="name">Name: </label>
+    <input id="name" name="name" [(ngModel)]="user.name" type="text" required #name="ngModel">
+
+    <ng-container *ngIf="name?.invalid && (name?.dirty || name?.touched)">
+      Name is required
+    </ng-container>
+  </div>
+
+  <div>
+    <label for="email">Email: </label>
+    <input id="email" name="email" [(ngModel)]="user.email" type="text" required #email="ngModel">
+
+    <ng-container *ngIf="email?.invalid && (email?.dirty || email?.touched)">
+      Email is required
+    </ng-container>
+  </div>
+
+  <div>
+    <label for="username">Username: </label>
+    <input id="username" name="username" [(ngModel)]="user.username" type="text" required #username="ngModel">
+
+    <ng-container *ngIf="username?.invalid && (username?.dirty || username?.touched)">
+      Username is required
+    </ng-container>
+  </div>
+
+  <div>
+    <label for="phone">Phone: </label>
+    <input id="phone" name="phone" [(ngModel)]="user.phone" type="text" required #phone="ngModel">
+
+    <ng-container *ngIf="phone?.invalid && (phone?.dirty || phone?.touched)">
+      Phone is required
+    </ng-container>
+  </div>
+
+  <div>
+    <label for="website">Website: </label>
+    <input id="website" name="website" [(ngModel)]="user.website" type="text" required #website="ngModel">
+
+    <ng-container *ngIf="website?.invalid && (website?.dirty || website?.touched)">
+      Website is required
+    </ng-container>
+  </div>
+
+  <button type="submit" [disabled]="!formGroup.valid && formGroup.touched">Save</button>
+</form>

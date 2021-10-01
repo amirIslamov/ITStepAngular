@@ -1,7 +1,12 @@
 <div *ngIf="users && users.length > 0 else noUsers">
+  <app-add-user-form (added)="addUser($event)"></app-add-user-form>
+
   <app-user-item
     *ngFor="let user of users"
-    [user]="user">
+    [user]="user"
+    (remove)="removeUser($event)"
+    (edit)="editUser($event)"
+  >
   </app-user-item>
 </div>
 

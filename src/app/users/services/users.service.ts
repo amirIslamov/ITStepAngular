@@ -1,36 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import {Observable} from "rxjs";
-import { usersBackendUrl } from "./config.json"
-
-interface Company {
-  name: string,
-  catchPhrase: string,
-  bs: string
-}
-
-interface Address {
-  "street": string,
-  "suite": string,
-  "city": string,
-  "zipcode": string,
-  "geo": GeoPosition
-}
-
-interface GeoPosition {
-  lat: number,
-  lng: number
-}
 
 export interface User {
   id: number,
   name: string,
   username: string,
   email: string,
-  address: Address,
   phone: string,
   website: string,
-  company: Company
 }
 
 export type CreateUserDto = Omit<User, 'id'>;
@@ -40,21 +18,23 @@ export type EditUserDto = Partial<CreateUserDto>;
   providedIn: 'root'
 })
 export class UsersService {
+  static readonly usersBackendUrl = "https://jsonplaceholder.typicode.com/users";
+
   constructor(private client: HttpClient) { }
 
   getUsers(): Observable<User[]> {
-    return this.client.get<User[]>(usersBackendUrl)
+    return this.client.get<User[]>(UsersService.usersBackendUrl)
   }
 
-  editUser(id: number, editUserDto: EditUserDto): Observable<{}> {
-    return this.client.patch(`${usersBackendUrl}/${id}`, editUserDto);
+  editUser(id: number, editUserDto: EditUserDto): Observable<User> {
+    return this.client.patch<User>(`${UsersService.usersBackendUrl}/${id}`, editUserDto);
   }
 
-  addUser(createUserDto: CreateUserDto): Observable<{}> {
-    return this.client.post(usersBackendUrl, createUserDto)
+  addUser(createUserDto: CreateUserDto): Observable<User> {
+    return this.client.post<User>(UsersService.usersBackendUrl, createUserDto)
   }
 
   removeUser(id: number): Observable<{}> {
-    return this.client.delete(`${usersBackendUrl}/${id}`);
+    return this.client.delete(`${UsersService.usersBackendUrl}/${id}`);
   }
 }
