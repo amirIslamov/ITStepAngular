@@ -1,0 +1,10 @@
+<div *ngIf="users && users.length > 0 else noUsers">
+  <app-user-item
+    *ngFor="let user of users"
+    [user]="user">
+  </app-user-item>
+</div>
+
+<ng-template #noUsers>
+  <h1>No users</h1>
+</ng-template>
