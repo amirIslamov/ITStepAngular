@@ -1,19 +1,22 @@
-import {NgModule} from '@angular/core';
-import {BrowserModule} from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
 
-import {AppComponent} from './components/app/app.component';
-import {UsersModule} from "./users/users.module";
+
+import { AppComponent } from './app.component';
+import {ProtectedModule} from './protected/protected.module';
+import {AuthModule} from './auth/auth.module';
+import {RouterModule} from '@angular/router';
+
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
-    BrowserModule,
-    UsersModule
+    ProtectedModule,
+    AuthModule,
+    RouterModule.forRoot([])
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule {
-}
+export class AppModule { }
